@@ -8,22 +8,21 @@ const getPokemons = async (
   limit = 20,
   offset = 0
 ): Promise<SimplePokemon[]> => {
-  try {
-    const data: PokemonResponse = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-    ).then((response) => response.json());
+  const data: PokemonResponse = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+  ).then((response) => response.json());
 
-    const pokemons = data.results.map((pokemon) => {
-      return {
-        id: pokemon.url.split("/").at(-2)!,
-        name: pokemon.name,
-      };
-    });
+  const pokemons = data.results.map((pokemon) => {
+    console.log(pokemon)
+    return {
+      id: pokemon.url.split("/").at(-2)!,
+      name: pokemon.name,
+    };
+  });
 
-    return pokemons;
-  } catch (error) {
-    throw new Error("Could not find any pokemons");
-  }
+  // throw new Error("Could not find any pokemons")
+
+  return pokemons;
 };
 
 export default async function PokemonsPage() {
